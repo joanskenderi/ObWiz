@@ -2,6 +2,10 @@
 
 ObWiz is a resume-building wizard that guides users step-by-step to create a polished, professional resume effortlessly.
 
+## Setup Environment Variables
+
+Rename the `.env.example` file to `.env`, then update it with your configuration values.
+
 ## Setup `api`
 
 Go to app directory
