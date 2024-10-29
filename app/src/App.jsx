@@ -1,8 +1,12 @@
+import { BrowserRouter } from 'react-router-dom';
+
+import { AppRouter } from './router';
+
 const App = () => {
   return (
-    <div>
-      <h1>ObWiz</h1>
-    </div>
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   );
 };
 
