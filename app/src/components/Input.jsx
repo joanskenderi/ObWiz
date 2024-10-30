@@ -1,8 +1,9 @@
-const Input = ({ label, type = 'text', placeholder, value, onChange }) => (
+const Input = ({ name, label, placeholder, value, onChange }) => (
   <div>
     <label className="block text-slate-700 font-semibold mb-1">{label}</label>
     <input
-      type={type}
+      type="text"
+      name={name}
       placeholder={placeholder}
       value={value}
       onChange={onChange}

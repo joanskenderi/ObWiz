@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -9,76 +8,37 @@ import {
   StepWrapper,
   Title,
 } from '../components';
+import { useForm } from '../hooks';
 import { skillSeniorityOptions } from '../config';
 
 const Skills = () => {
   const navigate = useNavigate();
-  const [skills, setSkills] = useState([
-    { skill: '', level: '', isAdded: false },
-  ]);
-  const [isAdding, setIsAdding] = useState(true);
+  const { formValues, updateFormValues } = useForm();
 
-  const handleSkillChange = (index, field, value) => {
-    const updatedSkills = skills.map((skill, i) =>
-      i === index ? { ...skill, [field]: value } : skill
-    );
-
-    setSkills(updatedSkills);
-  };
-
-  const handleSaveSkill = (index) => {
-    const updatedSkills = skills.map((skill, i) =>
-      i === index ? { ...skill, isAdded: true } : skill
-    );
-
-    setSkills(updatedSkills);
-    setIsAdding(false);
-  };
-
-  const handleAddSkill = () => {
-    setSkills([...skills, { skill: '', level: '', isAdded: false }]);
-    setIsAdding(true);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    updateFormValues({ [name]: value });
   };
 
   return (
     <StepWrapper>
       <Title>Skills</Title>
       <FormContainer>
-        {skills.map((skill, index) =>
-          skill.isAdded ? (
-            <div key={index} className="space-y-4">
-              <p className="text-slate-700 font-semibold">{`Skill Name: ${skill.skill}`}</p>
-              <p className="text-slate-500">{`Experience Level: ${skill.level}`}</p>
-            </div>
-          ) : (
-            <div key={index} className="space-y-4">
-              <Input
-                label="Skill Name"
-                placeholder="Enter your skill name"
-                value={skill.skill}
-                onChange={(e) =>
-                  handleSkillChange(index, 'skill', e.target.value)
-                }
-              />
-              <Dropdown
-                label="Experience Level"
-                options={skillSeniorityOptions}
-                value={skill.level}
-                onChange={(e) =>
-                  handleSkillChange(index, 'level', e.target.value)
-                }
-              />
-              <Button variant="primary" onClick={() => handleSaveSkill(index)}>
-                Add Skill
-              </Button>
-            </div>
-          )
-        )}
-        {!isAdding && (
-          <Button variant="secondary" onClick={handleAddSkill}>
-            Add New Skill
-          </Button>
-        )}
+        <Input
+          name="skill"
+          label="Skill"
+          placeholder="Add a skill"
+          value={formValues.skill}
+          onChange={handleChange}
+        />
+        <Dropdown
+          name="seniority"
+          label="Seniority"
+          options={skillSeniorityOptions}
+          value={formValues.seniority}
+          onChange={(value) => updateFormValues({ seniority: value })}
+        />
+        <Button variant="secondary">Add New Skill</Button>
         <div className="flex justify-between mt-4">
           <Button variant="previous" onClick={() => navigate('/experience')}>
             Previous

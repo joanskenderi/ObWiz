@@ -1,7 +1,8 @@
-const Textarea = ({ label, placeholder, value, onChange }) => (
+const Textarea = ({ name, label, placeholder, value, onChange }) => (
   <div>
     <label className="block text-slate-700 font-semibold mb-1">{label}</label>
     <textarea
+      name={name}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
